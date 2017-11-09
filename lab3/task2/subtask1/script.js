@@ -41,32 +41,25 @@ function mouseReleased() {
 
 function set_pixel(x, y, c) {
     idx = (y * 512 + x) * 4;
-    pixels[idx] = c;
+    pixels[idx] = -c;
     pixels[idx + 1] = c;
-    pixels[idx + 2] = c;
+    pixels[idx + 2] = 0;
     pixels[idx + 3] = 255;
 }
 
 function draw_line() {
-    console.log(x0);
-    console.log(y0);
-    console.log(x1);
-    console.log(y1)
     dx = x1 - x0;
     dy = y1 - y0;
     a = dy / dx;
     b = y0 - (a * x0);
-    console.log(a);
-    console.log(b);
 
-
-    for( x = x0; x<x1; x++){
-        var y = ((a * x) + b);
-        var dy = Math.floor(y);
-        set_pixel(x, dy, 0);
+    for (x = 0; x < 512; x++) {
+        for (y = 0; y < 512; y++) {
+            Dxy = ((dy / dx) * (x - x0)) - (y - y0);
+            // console.log(Dxy);
+            set_pixel(x, y, Dxy);
+        }
     }
-
-
 
 
 }

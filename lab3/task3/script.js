@@ -48,25 +48,28 @@ function set_pixel(x, y, c) {
 }
 
 function draw_line() {
-    console.log(x0);
-    console.log(y0);
-    console.log(x1);
-    console.log(y1)
     dx = x1 - x0;
     dy = y1 - y0;
+    Dp = (2*dy)-dx;
+    Deq  = 2*dy;
+    Dinc = (2*dy-(2*dx));
     a = dy / dx;
     b = y0 - (a * x0);
-    console.log(a);
-    console.log(b);
 
+    Dhat = (2*dy)-dy;
+    for (x = 0; x < 512; x++) {
+        for (y = 0; y < 512; y++) {
+            midpoint = (dy/dx) - (1/2);
 
-    for( x = x0; x<x1; x++){
-        var y = ((a * x) + b);
-        var dy = Math.floor(y);
-        set_pixel(x, dy, 0);
+            set_pixel(x, y, D);
+            if(D<0){
+                D+=Deq;
+            }else{
+                D+=Dinc;
+                y+=1;
+            }
+        }
     }
-
-
 
 
 }
